@@ -1,16 +1,13 @@
 package lab.oodp.pancake;
 
 import java.util.Deque;
-
 /**
  * Someone who eats pancakes.
  */
 public class Customer {
-
     private int bellySize;
     private String name;
     private int number;
-
     /**
      * Creates a new customer with the given belly size and name.
      *
@@ -22,7 +19,6 @@ public class Customer {
         this.name = name;
         this.number = number;
     }
-
     /**
      * Eats from the top of the stack of pancakes until either full or there's no pancakes left.
      *
@@ -31,7 +27,6 @@ public class Customer {
      * @param pancakes
      */
     public void eat(Deque<Pancake> pancakes) throws HungryException {
-
         /*
          * While this customer wants to eat more pancakes
          * - Get the top pancake of the stack (LIFO)
@@ -42,38 +37,31 @@ public class Customer {
          *   - Throw a HungryException
          * If we make it to the end without throwing an exception, print out how many pancakes we ate.
          */
-
         int desiredMealSize = this.bellySize;
-
-        while (desiredMealSize > 0) {
-        	//TODO: remove null, get pancake from stack
-            Pancake p = null;
-            
-            if (p != null) {
-
-                System.out.println(getName() + " ate " + p + "!");
-                desiredMealSize--;
-
-            } //TODO: add else when p is null (no more pancake in the stack), and throws HungryException
-
-        }
-
+            while (desiredMealSize > 0) {
+                //TODO: remove null, get pancake from stack
+                Pancake p = pancakes.peek();
+                if (p != null) {
+                    p = pancakes.pop();
+                    System.out.println(getName() + " ate " + p + "!");
+                    desiredMealSize--;
+                } //TODO: add else when p is null (no more pancake in the stack), and throws HungryException
+                else
+                {
+                    throw new HungryException(getName()+" is still hungry :(");
+                }
+            }
         System.out.println(getName() + " ate " + this.bellySize + " pancakes in total!");
-
     }
-
     public String getName() {
         return name + " ["+number+"]";
     }
-
     public int getBellySize() {
         return bellySize;
     }
-
 	public int getNumber() {
 		return number;
 	}
-
 	public void setNumber(int number) {
 		this.number = number;
 	}
